@@ -8,20 +8,24 @@ const addAudioElement = (blob: Blob) => {
   audio.src = url;
   audio.controls = true;
   document.body.appendChild(audio);
+
+//   const fr = new FileReader();
+//   fr.readAsDataURL(new Blob([url], { type: 'audio/wav' }));
+//   fr.addEventListener('load', () => {
+//     console.log(fr.result);
+//     // data:application/json;base64,eyJuYW1lIjoiVXNlciIsIm9jY3VwYXRpb24iOiJBIFVzZXIiLCJhZGRyZXNzIjoiMSBVc2VyIFJvYWQifQ==
+// });
+
 };
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <AudioRecorder 
-      onRecordingComplete={(blob) => addAudioElement(blob)} 
-      // audioTrackConstraints={{
-      //   noiseSuppression: true,
-      //   echoCancellation: true,
-      // }} 
+      onRecordingComplete={(blob) => addAudioElement(blob)}
       onNotAllowedOrFound={(err) => console.table(err)}
-      showVisualizer={true}
+      // showVisualizer={true}
       downloadOnSavePress
-      downloadFileExtension="mp3"
+      // downloadFileExtension="mp3"
     />
   </React.StrictMode>
 );
