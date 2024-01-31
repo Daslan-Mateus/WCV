@@ -102,22 +102,23 @@ const AudioRecorder: (props: Props) => ReactElement = ({
             };
             
             useEffect(() => {
-              if (
-                (shouldSave || recorderControls) && recordingBlob != null && onRecordingComplete != null) {
-                  onRecordingComplete(recordingBlob);
-
-                  const fr = new FileReader();
-                  fr.readAsDataURL(new Blob([recordingBlob], { type: 'audio/wav' }));
-                  fr.addEventListener('load', () => {
-                    console.log(fr.result);
-
-                });
-
+              if ((shouldSave || recorderControls) && recordingBlob != null && onRecordingComplete != null) {
+                onRecordingComplete(recordingBlob);
+          
+                const fr = new FileReader();
+                fr.readAsDataURL(new Blob([recordingBlob], { type: 'audio/wav' }));
+                fr.addEventListener('load', () => {
+                  const base64DataUrl = fr.result as string;
+                  console.log(base64DataUrl);
+          
                   if (downloadOnSavePress) {
                     void downloadBlob(recordingBlob);
                   }
-                }
-              }, [recordingBlob]);
+          
+                  void sendDataToBackend(base64DataUrl); // Envia para o backend
+                });
+              }
+            }, [recordingBlob]);
               
               return (
                 <div className="grid">
