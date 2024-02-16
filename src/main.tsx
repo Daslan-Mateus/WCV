@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import AudioRecorder from "./components/AudioRecordingComponent";
+import Formulario from "./components/Formulario";
 
 const addAudioElement = (blob: Blob) => {
   const url = URL.createObjectURL(blob);
@@ -8,14 +9,6 @@ const addAudioElement = (blob: Blob) => {
   audio.src = url;
   audio.controls = true;
   document.body.appendChild(audio);
-
-//   const fr = new FileReader();
-//   fr.readAsDataURL(new Blob([url], { type: 'audio/wav' }));
-//   fr.addEventListener('load', () => {
-//     console.log(fr.result);
-//     // data:application/json;base64,eyJuYW1lIjoiVXNlciIsIm9jY3VwYXRpb24iOiJBIFVzZXIiLCJhZGRyZXNzIjoiMSBVc2VyIFJvYWQifQ==
-// });
-
 };
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -24,8 +17,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       onRecordingComplete={(blob) => addAudioElement(blob)}
       onNotAllowedOrFound={(err) => console.table(err)}
       // showVisualizer={true}
-      downloadOnSavePress
+      // downloadOnSavePress
       // downloadFileExtension="mp3"
     />
+    <Formulario/>
   </React.StrictMode>
 );

@@ -107,10 +107,11 @@ const AudioRecorder: (props: Props) => ReactElement = ({
           
                 const fr = new FileReader();
                 fr.readAsDataURL(new Blob([recordingBlob], { type: 'audio/wav' }));
+
                 fr.addEventListener('load', () => {
-                  const base64DataUrl = fr.result as string;
+                  let base64DataUrl = fr.result as string;
+                  base64DataUrl = base64DataUrl.replace("data:audio/wav;base64,", "");
                   console.log(base64DataUrl);
-          
                   if (downloadOnSavePress) {
                     void downloadBlob(recordingBlob);
                   }
@@ -121,8 +122,7 @@ const AudioRecorder: (props: Props) => ReactElement = ({
             }, [recordingBlob]);
               
               return (
-                <div className="grid">
-                  <h1>Gravador de voz</h1>
+                <div>
                 <div
                 className={`audio-recorder ${isRecording ? "recording" : ""} ${
                   classes?.AudioRecorderClass ?? ""
