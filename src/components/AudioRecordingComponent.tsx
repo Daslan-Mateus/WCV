@@ -112,7 +112,6 @@ const AudioRecorder: (props: Props) => ReactElement = ({
 
       fr.addEventListener('load', () => {
         const base64DataUrl = fr.result as string;
-
         console.log(base64DataUrl);
 
         if (downloadOnSavePress) {
@@ -122,7 +121,6 @@ const AudioRecorder: (props: Props) => ReactElement = ({
         const fetchData = async () => {
           const centersArr = await saveAudio(base64DataUrl)
     
-<<<<<<< HEAD
     const [shouldSave, setShouldSave] = useState(false);
     
     const stopAudioRecorder: (save?: boolean) => void = (
@@ -201,7 +199,7 @@ const AudioRecorder: (props: Props) => ReactElement = ({
             }, [recordingBlob]);
               
               return (
-                <div>
+    
                 <div
                 className={`audio-recorder ${isRecording ? "recording" : ""} ${
                   classes?.AudioRecorderClass ?? ""
@@ -215,9 +213,9 @@ const AudioRecorder: (props: Props) => ReactElement = ({
                 }`}
                 onClick={isRecording ? () => stopAudioRecorder() : startRecording}
                 data-testid="ar_mic"
-                title={isRecording ? "Save recording" : "Start recording"}
-=======
-        };
+                title={isRecording ? "Save recording" : "Start recording"}/>
+            </div>
+      )};
       });
     }
   }, [recordingBlob]);
