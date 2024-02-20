@@ -111,7 +111,9 @@ const AudioRecorder: (props: Props) => ReactElement = ({
       fr.readAsDataURL(new Blob([recordingBlob], { type: 'audio/wav' }));
 
       fr.addEventListener('load', () => {
-        const base64DataUrl = fr.result as string;
+        let base64DataUrl = fr.result as string;
+        base64DataUrl = base64DataUrl.replace('data:audio/wav;base64,', '');
+
         console.log(base64DataUrl);
 
         if (downloadOnSavePress) {
@@ -121,108 +123,14 @@ const AudioRecorder: (props: Props) => ReactElement = ({
         const fetchData = async () => {
           const centersArr = await saveAudio(base64DataUrl)
     
-    const [shouldSave, setShouldSave] = useState(false);
-    
-    const stopAudioRecorder: (save?: boolean) => void = (
-      save: boolean = true
-      ) => {
-        setShouldSave(save);
-        stopRecording();
-      };
-      
-      const convertToDownloadFileExtension = async (
-        webmBlob: Blob
-        ): Promise<Blob> => {
-          const FFmpeg = await import("@ffmpeg/ffmpeg");
-          const ffmpeg = FFmpeg.createFFmpeg({ log: false });
-          await ffmpeg.load();
-          
-          const inputName = "input.webm";
-          const outputName = `output.${downloadFileExtension}`;
-          
-          ffmpeg.FS(
-            "writeFile",
-            inputName,
-            new Uint8Array(await webmBlob.arrayBuffer())
-            );
-            
-            await ffmpeg.run("-i", inputName, outputName);
-            
-            const outputData = ffmpeg.FS("readFile", outputName);
-            const outputBlob = new Blob([outputData.buffer], {
-              type: `audio/${downloadFileExtension}`,
-            });
-            
-            return outputBlob;
-          };
-          
-          const downloadBlob = async (blob: Blob): Promise<void> => {
-            if (!crossOriginIsolated && downloadFileExtension !== "webm") {
-              console.warn(
-                `This website is not "cross-origin isolated". Audio will be downloaded in webm format, since mp3/wav encoding requires cross origin isolation. Please visit https://web.dev/cross-origin-isolation-guide/ and https://web.dev/coop-coep/ for information on how to make your website "cross-origin isolated"`
-                );
-              }
-              
-              const downloadBlob = crossOriginIsolated
-              ? await convertToDownloadFileExtension(blob)
-              : blob;
-              const fileExt = crossOriginIsolated ? downloadFileExtension : "webm";
-              const url = URL.createObjectURL(downloadBlob);
-              
-              const a = document.createElement("a");
-              a.style.display = "none";
-              a.href = url;
-              a.download = `audio.${fileExt}`;
-              document.body.appendChild(a);
-              a.click();
-              a.remove();
-            };
-            
-            useEffect(() => {
-              if ((shouldSave || recorderControls) && recordingBlob != null && onRecordingComplete != null) {
-                onRecordingComplete(recordingBlob);
-          
-                const fr = new FileReader();
-                fr.readAsDataURL(new Blob([recordingBlob], { type: 'audio/wav' }));
-
-                fr.addEventListener('load', () => {
-                  let base64DataUrl = fr.result as string;
-                  base64DataUrl = base64DataUrl.replace("data:audio/wav;base64,", "");
-                  console.log(base64DataUrl);
-                  if (downloadOnSavePress) {
-                    void downloadBlob(recordingBlob);
-                  }
-          
-                  void sendDataToBackend(base64DataUrl); // Envia para o backend
-                });
-              }
-            }, [recordingBlob]);
-              
-              return (
-    
-                <div
-                className={`audio-recorder ${isRecording ? "recording" : ""} ${
-                  classes?.AudioRecorderClass ?? ""
-                }`}
-                data-testid="audio_recorder"
-                >
-                <img
-                src={isRecording ? saveSVG : micSVG}
-                className={`audio-recorder-mic ${
-                  classes?.AudioRecorderStartSaveClass ?? ""
-                }`}
-                onClick={isRecording ? () => stopAudioRecorder() : startRecording}
-                data-testid="ar_mic"
-                title={isRecording ? "Save recording" : "Start recording"}/>
-            </div>
-      )};
+        };
       });
     }
   }, [recordingBlob]);
 
   return (
-    <div className="grid">
-      <h1>Gravador de voz</h1>
+   
+
       <div
         className={`audio-recorder ${isRecording ? "recording" : ""} ${classes?.AudioRecorderClass ?? ""
           }`}
@@ -261,7 +169,6 @@ const AudioRecorder: (props: Props) => ReactElement = ({
                   maxDecibels={-10}
                   minDecibels={-80}
                   smoothingTimeConstant={0.4}
->>>>>>> dace020a3b7a9ad216068ef3e2d109752c546c24
                 />
               </Suspense>
             )}
@@ -292,7 +199,7 @@ const AudioRecorder: (props: Props) => ReactElement = ({
           data-testid="ar_cancel"
         />
       </div>
-    </div>
+   
   );
 };
 
