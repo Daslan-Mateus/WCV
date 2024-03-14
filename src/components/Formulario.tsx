@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
 import "../styles/forms-css.css"
+import AudioRecorder from "./AudioRecordingComponent";
+
+const addAudioElement = (blob: Blob) => {
+  const url = URL.createObjectURL(blob);
+  const audio = document.createElement("audio");
+  audio.src = url;
+  audio.controls = true;
+  document.body.appendChild(audio);
+};
 
 const Formulario = () => {
   const [dados, setDados] = useState({
@@ -43,7 +52,15 @@ const Formulario = () => {
 
   return (
     <div>
-      <p>{audioResponse}123332121213212132</p>
+      <AudioRecorder 
+      onRecordingComplete={(blob) => addAudioElement(blob)}
+      onNotAllowedOrFound={(err) => console.table(err)}
+      // showVisualizer={true}
+      // downloadOnSavePress
+      // downloadFileExtension="mp3"
+      //set....
+    />
+     
       <form onSubmit={handleSubmit} className='formulario'>
       <div className='direita'>
         <label>Mercado:</label>
