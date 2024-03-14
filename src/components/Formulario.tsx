@@ -25,7 +25,9 @@ const Formulario = () => {
     especificacaoCliente: ''
   });
 
-  const handleChange = (event) => {
+  const [audioResponse, setAudioResponse] = useState<any>('')
+
+  const handleChange = (event: any) => {
     const { name, value } = event.target;
     setDados(prevState => ({
       ...prevState,
@@ -33,14 +35,16 @@ const Formulario = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     // Aqui você pode enviar os dados para onde precisar, como uma API por exemplo
     console.log(dados);
   };
 
   return (
-    <form onSubmit={handleSubmit} className='formulario'>
+    <div>
+      <p>{audioResponse}123332121213212132</p>
+      <form onSubmit={handleSubmit} className='formulario'>
       <div className='direita'>
         <label>Mercado:</label>
         <input type="text" name="mercado" value={dados.mercado} onChange={handleChange} />
@@ -113,6 +117,7 @@ const Formulario = () => {
       </div>
      
     </form>
+    </div>
   );
 };
 

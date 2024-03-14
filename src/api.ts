@@ -17,7 +17,7 @@ const fetchData = async (url: string): Promise<any | null> => {
 
 
 export const saveAudio = async (audio64: string): Promise<void> => {
-  const url = `linkNikolas/audio`;
+  const url = `http://10.1.21.75:80/wvc`;
 
   try {
     const audioData = [

@@ -27,6 +27,7 @@ const AudioRecorder: (props: Props) => ReactElement = ({
   showVisualizer = false,
   mediaRecorderOptions,
   classes,
+  //setAudioResponse
 }: Props) => {
   const {
     startRecording,
@@ -47,6 +48,7 @@ const AudioRecorder: (props: Props) => ReactElement = ({
     );
 
   const [shouldSave, setShouldSave] = useState(false);
+
 
   const stopAudioRecorder: (save?: boolean) => void = (
     save: boolean = true
@@ -102,6 +104,11 @@ const AudioRecorder: (props: Props) => ReactElement = ({
     a.click();
     a.remove();
   };
+  
+  const fetchData = async (base64DataUrl: string) => {
+    const audio = await saveAudio(base64DataUrl)
+    //setAudioResponse(audio)
+  };
 
   useEffect(() => {
     if ((shouldSave || recorderControls) && recordingBlob != null && onRecordingComplete != null) {
@@ -116,15 +123,13 @@ const AudioRecorder: (props: Props) => ReactElement = ({
 
         console.log(base64DataUrl);
 
+        fetchData(base64DataUrl)
+
         if (downloadOnSavePress) {
           void downloadBlob(recordingBlob);
         }
-
-        const fetchData = async () => {
-          const centersArr = await saveAudio(base64DataUrl)
-    
-        };
       });
+    
     }
   }, [recordingBlob]);
 
