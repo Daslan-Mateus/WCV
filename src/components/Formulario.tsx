@@ -2,15 +2,32 @@ import React, { useState } from 'react';
 import "../styles/forms-css.css"
 import AudioRecorder from "./AudioRecordingComponent";
 
-const addAudioElement = (blob: Blob) => {
-  const url = URL.createObjectURL(blob);
-  const audio = document.createElement("audio");
-  audio.src = url;
-  audio.controls = true;
-  document.body.appendChild(audio);
-};
 
-const Formulario = () => {
+type mercadoProps = {
+  mercado: string;
+  alimentacao: string;
+  invdlucro: string;
+  linha: string;
+  varianteLinha: string;
+  materialInvdlucro: string;
+  frequencia: string;
+  norma: string;
+  detalhe1: string;
+  detalhe2: string;
+  tipoEnrolamento: string;
+  potencia: string;
+  polos: string;
+  carcaça: string;
+  carcaçaComercial: string;
+  tensaoComCabo: string;
+  tensaoSemCabo: string;
+  numeroCabosLigacao: string;
+  tipoProduto: string;
+  especificacaoCliente: string;
+}
+
+function Formulario(props: mercadoProps) {
+
   const [dados, setDados] = useState({
     mercado: '',
     alimentacao: '',
@@ -52,83 +69,76 @@ const Formulario = () => {
 
   return (
     <div>
-      <AudioRecorder 
-      onRecordingComplete={(blob) => addAudioElement(blob)}
-      onNotAllowedOrFound={(err) => console.table(err)}
-      // showVisualizer={true}
-      // downloadOnSavePress
-      // downloadFileExtension="mp3"
-      //set....
-    />
+  
      
       <form onSubmit={handleSubmit} className='formulario'>
       <div className='direita'>
         <label>Mercado:</label>
-        <input type="text" name="mercado" value={dados.mercado} onChange={handleChange} />
+        <input type="text" name="mercado" value={props.mercado} onChange={handleChange} />
         
         <label>Alimentação:</label>
-        <input type="text" name="alimentacao" value={dados.alimentacao} onChange={handleChange} />
+        <input type="text" name="alimentacao" value={props.alimentacao} onChange={handleChange} />
         
         <label>Invdlucro:</label>
-        <input type="text" name="invdlucro" value={dados.invdlucro} onChange={handleChange} />
+        <input type="text" name="invdlucro" value={props.invdlucro} onChange={handleChange} />
         
         <label>Linha:</label>
-        <input type="text" name="linha" value={dados.linha} onChange={handleChange} />
+        <input type="text" name="linha" value={props.linha} onChange={handleChange} />
         
         <label>Variante de Linha:</label>
-        <input type="text" name="varianteLinha" value={dados.varianteLinha} onChange={handleChange} />
+        <input type="text" name="varianteLinha" value={props.varianteLinha} onChange={handleChange} />
       </div>
 
       <div>
         <label>Material Invdlucro:</label>
-        <input type="text" name="materialInvdlucro" value={dados.materialInvdlucro} onChange={handleChange} />
+        <input type="text" name="materialInvdlucro" value={props.materialInvdlucro} onChange={handleChange} />
         
         <label>Frequência:</label>
-        <input type="text" name="frequencia" value={dados.frequencia} onChange={handleChange} />
+        <input type="text" name="frequencia" value={props.frequencia} onChange={handleChange} />
         
         <label>Norma:</label>
-        <input type="text" name="norma" value={dados.norma} onChange={handleChange} />
+        <input type="text" name="norma" value={props.norma} onChange={handleChange} />
         
         <label>Detalhe 1:</label>
-        <input type="text" name="detalhe1" value={dados.detalhe1} onChange={handleChange} />
+        <input type="text" name="detalhe1" value={props.detalhe1} onChange={handleChange} />
         
         <label>Detalhe 2:</label>
-        <input type="text" name="detalhe2" value={dados.detalhe2} onChange={handleChange} />
+        <input type="text" name="detalhe2" value={props.detalhe2} onChange={handleChange} />
       </div>
 
       <div>
       <label>Tipo de Enrolamento:</label>
-      <input type="text" name="tipoEnrolamento" value={dados.tipoEnrolamento} onChange={handleChange} />
+      <input type="text" name="tipoEnrolamento" value={props.tipoEnrolamento} onChange={handleChange} />
       
       <label>Potência:</label>
-      <input type="text" name="potencia" value={dados.potencia} onChange={handleChange} />
+      <input type="text" name="potencia" value={props.potencia} onChange={handleChange} />
       
       <label>Polos:</label>
-      <input type="text" name="polos" value={dados.polos} onChange={handleChange} />
+      <input type="text" name="polos" value={props.polos} onChange={handleChange} />
       
       <label>Carcaça:</label>
-      <input type="text" name="carcaça" value={dados.carcaça} onChange={handleChange} />
+      <input type="text" name="carcaça" value={props.carcaça} onChange={handleChange} />
       
       <label>Carcaça Comercial:</label>
-      <input type="text" name="carcaçaComercial" value={dados.carcaçaComercial} onChange={handleChange} />
+      <input type="text" name="carcaçaComercial" value={props.carcaçaComercial} onChange={handleChange} />
       </div>
 
       <div>
       
       <label>Tensão com Cabo:</label>
-      <input type="text" name="tensaoComCabo" value={dados.tensaoComCabo} onChange={handleChange} />
+      <input type="text" name="tensaoComCabo" value={props.tensaoComCabo} onChange={handleChange} />
       
       <label>Tensão sem Cabo:</label>
-      <input type="text" name="tensaoSemCabo" value={dados.tensaoSemCabo} onChange={handleChange} />
+      <input type="text" name="tensaoSemCabo" value={props.tensaoSemCabo} onChange={handleChange} />
       
       <label>Número de Cabos Ligação:</label>
-      <input type="text" name="numeroCabosLigacao" value={dados.numeroCabosLigacao} onChange={handleChange} />
+      <input type="text" name="numeroCabosLigacao" value={props.numeroCabosLigacao} onChange={handleChange} />
       
       <label>Tipo Produto:</label>
-      <input type="text" name="tipoProduto" value={dados.tipoProduto} onChange={handleChange} />
+      <input type="text" name="tipoProduto" value={props.tipoProduto} onChange={handleChange} />
 
       <label>Especificação do Cliente:</label>
-      <input type="text" name="especificacaoCliente" value={dados.especificacaoCliente} onChange={handleChange} />
+      <input type="text" name="especificacaoCliente" value={props.especificacaoCliente} onChange={handleChange} />
       
       <button type="submit">Enviar</button>
       </div>

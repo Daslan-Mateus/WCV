@@ -106,8 +106,8 @@ const AudioRecorder: (props: Props) => ReactElement = ({
   };
   
   const fetchData = async (base64DataUrl: string) => {
-    const audio = await saveAudio(base64DataUrl)
-    //setAudioResponse(audio)
+    const infosDoFOrmulario = await saveAudio(base64DataUrl)
+    return infosDoFOrmulario
   };
 
   useEffect(() => {
@@ -123,7 +123,7 @@ const AudioRecorder: (props: Props) => ReactElement = ({
 
         console.log(base64DataUrl);
 
-        fetchData(base64DataUrl)
+        fetchData(base64DataUrl).then(infos => props.onRecebeuInfos(infos))
 
         if (downloadOnSavePress) {
           void downloadBlob(recordingBlob);
