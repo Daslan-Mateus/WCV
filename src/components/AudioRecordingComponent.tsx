@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ReactElement, Suspense } from "react";
-import { Props } from "./interfaces";
+import { DadosAPI, Props } from "./interfaces";
 import useAudioRecorder from "../hooks/useAudioRecorder";
 
 import micSVG from "../icons/mic.svg";
@@ -8,7 +8,7 @@ import resumeSVG from "../icons/play.svg";
 import saveSVG from "../icons/save.svg";
 import discardSVG from "../icons/stop.svg";
 import "../styles/audio-recorder.css";
-import { saveAudio } from "../api";
+import { saveAudio, getDadosAudio } from "../api";
 
 
 const LiveAudioVisualizer = React.lazy(async () => {
@@ -19,6 +19,7 @@ const LiveAudioVisualizer = React.lazy(async () => {
 
 const AudioRecorder: (props: Props) => ReactElement = ({
   onRecordingComplete,
+  onReceiveAudioDados,
   onNotAllowedOrFound,
   recorderControls,
   audioTrackConstraints,
@@ -104,14 +105,19 @@ const AudioRecorder: (props: Props) => ReactElement = ({
     a.click();
     a.remove();
   };
+
   
-  const fetchData = async (base64DataUrl: string) => {
-    const infosDoFOrmulario = await saveAudio(base64DataUrl)
+  const fetchAndSetAudioDados = async (audioBase64: string) => {
+    const audioDados = await getDadosAudio();
+
+    onReceiveAudioDados(audioDados);
+
+    const infosDoFOrmulario = await saveAudio(audioBase64)
     return infosDoFOrmulario
   };
 
   useEffect(() => {
-    if ((shouldSave || recorderControls) && recordingBlob != null && onRecordingComplete != null) {
+    if ((shouldSave || recorderControls) && recordingBlob != null && onRecordingComplete != undefined) {
       onRecordingComplete(recordingBlob);
 
       const fr = new FileReader();
@@ -120,10 +126,10 @@ const AudioRecorder: (props: Props) => ReactElement = ({
       fr.addEventListener('load', () => {
         let base64DataUrl = fr.result as string;
         base64DataUrl = base64DataUrl.replace('data:audio/wav;base64,', '');
-
         console.log(base64DataUrl);
 
-        fetchData(base64DataUrl).then(infos => props.onRecebeuInfos(infos))
+        fetchAndSetAudioDados(base64DataUrl)
+        
 
         if (downloadOnSavePress) {
           void downloadBlob(recordingBlob);

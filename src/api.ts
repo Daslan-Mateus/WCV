@@ -1,3 +1,5 @@
+import { DadosAPI } from "./components/interfaces";
+
 const fetchData = async (url: string): Promise<any | null> => {
   try {
     const res = await fetch(url, { cache: 'no-store' });
@@ -16,7 +18,7 @@ const fetchData = async (url: string): Promise<any | null> => {
 };
 
 
-export const saveAudio = async (audio64: string): Promise<void> => {
+export const saveAudio = async (audio64: string): Promise<DadosAPI> => {
   const url = `http://10.1.21.75:80/wvc`;
 
   try {
@@ -33,19 +35,23 @@ export const saveAudio = async (audio64: string): Promise<void> => {
       },
       body: JSON.stringify(audioData),
     })
-
     if (!response.ok) {
       const errorMessage = await response.text();
       console.error(`Failed to save audio with Status ${response.status}`);
       console.log(errorMessage);
       throw new Error(`Failed to save audio`)
     }
+    const audioRetornado = await response.json();
+    return audioRetornado
 
-    const savedaudio = await response.json();
-
-    return savedaudio
   } catch (error) {
     console.error('Error while saving audio:', error)
     throw error
   }
+}
+
+export const getDadosAudio = async (): Promise<DadosAPI> => {
+  const url = `http://10.1.21.75:80/wvc`;
+
+  return fetchData(`${url}/audio-recording?timestamp=${new Date().getTime()}`) as Promise<DadosAPI>;
 }
