@@ -8,7 +8,7 @@ import resumeSVG from "../icons/play.svg";
 import saveSVG from "../icons/save.svg";
 import discardSVG from "../icons/stop.svg";
 import "../styles/audio-recorder.css";
-import { saveAudio, getDadosAudio } from "../api";
+import { saveAudio } from "../api";
 
 
 const LiveAudioVisualizer = React.lazy(async () => {
@@ -19,7 +19,7 @@ const LiveAudioVisualizer = React.lazy(async () => {
 
 const AudioRecorder: (props: Props) => ReactElement = ({
   onRecordingComplete,
-  onReceiveAudioDados,
+  setDados,
   onNotAllowedOrFound,
   recorderControls,
   audioTrackConstraints,
@@ -108,12 +108,11 @@ const AudioRecorder: (props: Props) => ReactElement = ({
 
   
   const fetchAndSetAudioDados = async (audioBase64: string) => {
-    const audioDados = await getDadosAudio();
+    const audioDados = await saveAudio(audioBase64)
+    setDados(audioDados)//verificar se sim, verificar o valor de "dados"
 
-    onReceiveAudioDados(audioDados);
-
-    const infosDoFOrmulario = await saveAudio(audioBase64)
-    return infosDoFOrmulario
+    console.log(audioDados)
+    return audioDados
   };
 
   useEffect(() => {
@@ -126,7 +125,7 @@ const AudioRecorder: (props: Props) => ReactElement = ({
       fr.addEventListener('load', () => {
         let base64DataUrl = fr.result as string;
         base64DataUrl = base64DataUrl.replace('data:audio/wav;base64,', '');
-        console.log(base64DataUrl);
+        // console.log(base64DataUrl);
 
         fetchAndSetAudioDados(base64DataUrl)
         

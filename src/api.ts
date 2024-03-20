@@ -41,7 +41,7 @@ export const saveAudio = async (audio64: string): Promise<DadosAPI> => {
       console.log(errorMessage);
       throw new Error(`Failed to save audio`)
     }
-    const audioRetornado = await response.json();
+    const audioRetornado: DadosAPI = await response.json();
     return audioRetornado
 
   } catch (error) {
@@ -50,8 +50,3 @@ export const saveAudio = async (audio64: string): Promise<DadosAPI> => {
   }
 }
 
-export const getDadosAudio = async (): Promise<DadosAPI> => {
-  const url = `http://10.1.21.75:80/wvc`;
-
-  return fetchData(`${url}/audio-recording?timestamp=${new Date().getTime()}`) as Promise<DadosAPI>;
-}

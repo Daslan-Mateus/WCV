@@ -31,11 +31,13 @@ interface StyleProps {
 }
 
 export interface Props {
-  onReceiveAudioDados: (dados: DadosAPI) => void;
   /**
    * This gets called when the save button is clicked.
    * In case the recording is cancelled, the blob is discarded.
    **/
+
+  setDados: (value: DadosAPI) => void;
+
   onRecordingComplete?: (blob: Blob) => void;
   /**
    * This gets called when the getUserMedia Promise is rejected.
@@ -87,18 +89,19 @@ export interface Props {
 export interface DadosAPI {
     mercado: string;
     alimentacao: string;
-    invdlucro: string;
-    linha: string;
-    materialInvdlucro: string;
     frequencia: string;
-    norma: string;
-    detalhe1: string;
-    detalhe2: string;
+    involucro: string;
+    materialInvolucro: string;
     tipoEnrolamento: string;
     potencia: string;
     polos: string;
-    carcaca: string;
     tensao: string;
+    norma: string;
+    varianteLinha: string;
+    carcaca: string;
+    linha: string;
+    detalhe1: string;
+    detalhe2: string;
     
   }
   

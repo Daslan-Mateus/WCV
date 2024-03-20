@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
 import "../styles/forms-css.css"
-import AudioRecorder from "./AudioRecordingComponent";
 import { DadosAPI } from './interfaces';
 
 
@@ -31,15 +29,15 @@ function Formulario(props: Props) {
           <input type="text" name="alimentacao" value={dados.alimentacao} />
 
           <label>Invdlucro:</label>
-          <input type="text" name="invdlucro" value={dados.invdlucro} />
+          <input type="text" name="invdlucro" value={dados.involucro} />
 
           <label>Linha:</label>
           <input type="text" name="linha" value={dados.linha} />
         </div>
 
         <div>
-          <label>Material Invdlucro:</label>
-          <input type="text" name="materialInvdlucro" value={dados.materialInvdlucro} />
+          <label>Material Involucro:</label>
+          <input type="text" name="materialInvdlucro" value={dados.materialInvolucro} />
 
           <label>Frequência:</label>
           <input type="text" name="frequencia" value={dados.frequencia} />
@@ -65,7 +63,10 @@ function Formulario(props: Props) {
           <label>Norma:</label>
           <input type="text" name="norma" value={dados.norma} />
           <label>Tensão:</label>
-          <input type="text" name="tensaoComCabo" value={dados.tensao} />
+          <input type="text" name="tensao" value={dados.tensao} />
+          <label>Variante de linha:</label>
+          <input type="text" name="varianteLinha" value={dados.varianteLinha} />
+
           <button type="submit">Enviar</button>
         </div>
 

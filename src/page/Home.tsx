@@ -17,25 +17,26 @@ function Home() {
   const [dados, setDados] = useState<DadosAPI>({
     mercado: '',
     alimentacao: '',
-    invdlucro: '',
-    linha: '',
-    materialInvdlucro: '',
     frequencia: '',
-    norma: '',
-    detalhe1: '',
-    detalhe2: '',
+    involucro: '',
+    materialInvolucro: '',
     tipoEnrolamento: '',
     potencia: '',
     polos: '',
+    tensao: '',
+    norma: '',
+    varianteLinha: '',
     carcaca: '',
-    tensao: ''
+    linha: '',
+    detalhe1: '',
+    detalhe2: ''
   });
   return (
     <div>
       <Menu/>
       <AudioRecorder
         onRecordingComplete={(blob) => addAudioElement(blob)}
-        onReceiveAudioDados={dados => setDados(dados)}
+        setDados={setDados}
         onNotAllowedOrFound={(err) => console.table(err)}
       // showVisualizer={true}
       // downloadOnSavePress
