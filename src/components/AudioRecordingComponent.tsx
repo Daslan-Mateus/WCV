@@ -21,6 +21,7 @@ const LiveAudioVisualizer = React.lazy(async () => {
 
 const AudioRecorder: (props: Props) => ReactElement = ({
   onRecordingComplete,
+  dados,
   setDados,
   onNotAllowedOrFound,
   recorderControls,
@@ -108,28 +109,26 @@ const AudioRecorder: (props: Props) => ReactElement = ({
     a.remove();
   };
 
-
+  
   const fetchAndSetAudioDados = async (audioBase64: string) => {
     const audioDados = await saveAudio(audioBase64)
-    setDados({
-      mercado: audioDados.mercado,
-      alimentacao: audioDados.alimentacao,
-      frequencia: audioDados.frequencia,
-      involucro: audioDados.involucro,
-      materialInvolucro: audioDados.materialInvolucro,
-      tipoEnrolamento: audioDados.tipoEnrolamento,
-      potencia: audioDados.potencia,
-      polos: audioDados.polos,
-      tensao: audioDados.tensao,
-      norma: audioDados.norma,
-      varianteLinha: audioDados.varianteLinha,
-      carcaca: audioDados.carcaca,
-      linha: audioDados.linha,
-      detalhe1: audioDados.detalhe1,
-      detalhe2: audioDados.detalhe2
+    setDados({...dados,
+      mercado: audioDados.mercado ??"",
+      alimentacao: audioDados.alimentacao??"",
+      frequencia: audioDados.frequencia??"",
+      involucro: audioDados.involucro??"",
+      materialInvolucro: audioDados.materialInvolucro??"",
+      tipoEnrolamento: audioDados.tipoEnrolamento??"",
+      potencia: audioDados.potencia??"",
+      polos: audioDados.polos??"",
+      tensao: audioDados.tensao??"",
+      norma: audioDados.norma??"",
+      varianteLinha: audioDados.varianteLinha??"",
+      carcaca: audioDados.carcaca??"",
+      linha: audioDados.linha??"",
+      detalhe1: audioDados.detalhe1??"",
+      detalhe2: audioDados.detalhe2??""
     })//verificar se sim, verificar o valor de "dados"
-
-    console.log(audioDados)
     return audioDados
   };
 

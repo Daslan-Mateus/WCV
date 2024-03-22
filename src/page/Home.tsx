@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AudioRecorder from "../components/AudioRecordingComponent";
 import Formulario from "../components/Formulario";
 import { DadosAPI } from "../components/interfaces";
@@ -31,11 +31,14 @@ function Home() {
     detalhe1: '',
     detalhe2: ''
   });
+
+ 
   return (
     <div>
       <Menu/>
       <AudioRecorder
         onRecordingComplete={(blob) => addAudioElement(blob)}
+        dados={dados}
         setDados={setDados}
         onNotAllowedOrFound={(err) => console.table(err)}
       // showVisualizer={true}

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "../styles/forms-css.css"
 import { DadosAPI } from './interfaces';
 
@@ -22,6 +23,8 @@ function Formulario(props: Props) {
     console.log(dados);
   };
 
+  useEffect(()=> {console.log("audio: ", dados)},[dados])
+
   return (
     <div>
 
@@ -34,7 +37,7 @@ function Formulario(props: Props) {
           <label>Alimentação:</label>
           <input type="text" name="alimentacao" value={dados.alimentacao} onChange={handleClick}/>
 
-          <label>Invdlucro:</label>
+          <label>Involucro:</label>
           <input type="text" name="invdlucro" value={dados.involucro} onChange={handleClick}/>
 
           <label>Linha:</label>

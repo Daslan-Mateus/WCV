@@ -35,8 +35,9 @@ export interface Props {
    * This gets called when the save button is clicked.
    * In case the recording is cancelled, the blob is discarded.
    **/
-
-  setDados: (value: DadosAPI) => void;
+  
+  dados: any;
+  setDados: (arg0: any) => any;
 
   onRecordingComplete?: (blob: Blob) => void;
   /**
