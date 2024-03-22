@@ -3,6 +3,7 @@ import { DadosAPI } from './interfaces';
 
 
 
+
 type Props = {
   dados: DadosAPI
 }
