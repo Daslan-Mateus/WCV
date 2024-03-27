@@ -1,25 +1,40 @@
 .menu {
-    grid-column: 3/5;
+    /*grid-column: 3/5;*/
     background: #fb5;
+    height: 80px;
+    display: block;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.menu img {
+    width: 80px; 
+    height: auto; 
+    position: absolute;
+    top: 10px;
+    left: 20px;
 }
 
 .menu ul {
     display: flex;
     justify-content: center;
-    padding: 10px;
-    margin-right: 10px;
     list-style-type: none;
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    
 }
 
 .menu li a {
-    display: block;
+    
     padding: 10px;
-    margin-right: 10px;
+    /*margin-right: 10px;*/
     color: #222;
     text-decoration: none;
-    font-family: monospace;
+    font-family:" Roboto", Helvetica, Arial, sans-serif;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 0.875rem;
+    font-size: 1rem;
     letter-spacing: .1em;
+    
 }

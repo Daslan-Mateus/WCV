@@ -3,6 +3,7 @@ import AudioRecorder from "../components/AudioRecordingComponent";
 import Formulario from "../components/Formulario";
 import { DadosAPI } from "../components/interfaces";
 import Menu from "../components/Menu";
+import "../styles/home.css"
 
 const addAudioElement = (blob: Blob) => {
   const url = URL.createObjectURL(blob);
